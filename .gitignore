@@ -4,3 +4,8 @@ __pycache__/
 *.py[cod]
 .DS_Store
 tmp/
+laporan/latex/*.aux
+laporan/latex/*.log
+laporan/latex/*.toc
+laporan/latex/*.out
+laporan/latex/*.synctex.gz

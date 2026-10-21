@@ -1,0 +1,78 @@
+\section{Reproduksi dan Pengujian}
+\label{sec:reproduksi}
+
+\subsection{Lingkungan eksekusi}
+Program menggunakan Python 3.10 atau lebih baru. Eksekusi yang diperiksa
+menggunakan Python 3.10, NumPy 2.2.6, SciPy 1.15.3, scikit-image 0.25.2,
+Matplotlib 3.10.9, dan Pillow 12.3.0. Semua dependensi program dicantumkan
+di \path{requirements.txt}; dependensi pengujian tambahan tercantum pada
+\path{requirements-dev.txt}.
+
+Satu cara eksekusi digunakan secara konsisten, yaitu melalui Python di
+\kode{.venv}. Dari folder utama repositori pada Windows PowerShell,
+persiapan berikut cukup dilakukan sekali:
+\begin{lstlisting}[style=terminal]
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+\end{lstlisting}
+Setelah dependensi terpasang, jalankan kedua program:
+\begin{lstlisting}[style=terminal]
+.\.venv\Scripts\python.exe soal1/main.py
+.\.venv\Scripts\python.exe soal3/main.py
+\end{lstlisting}
+Pemanggilan langsung interpreter tersebut tidak memerlukan aktivasi
+lingkungan. Folder \kode{.venv} dibuat pada masing-masing komputer dan
+diabaikan oleh Git.
+
+\subsection{Berkas keluaran}
+Hasil nomor 1 tersimpan di \path{soal1/hasil/}. Berkas \kode{im1.npy},
+\kode{im2.npy}, dan \kode{hasil.npy} menyimpan data numerik bertanda.
+Berkas PNG merupakan visualisasi, sedangkan \kode{metadata.json}
+menyimpan parameter dan statistik respons.
+
+Hasil nomor 3 tersimpan di \path{soal3/hasil/}. Berkas \kode{mask_koin.png}
+menunjukkan segmentasi; \kode{label_koin.png} membedakan objek;
+\kode{anotasi_koin.png} menunjukkan ID dan kelompok. Pengukuran tiap objek
+tersimpan di \kode{objek_koin.csv}, sedangkan jumlah serta statistik setiap
+kelompok tersimpan di \kode{ringkasan.json}.
+
+\subsection{Pemeriksaan otomatis}
+Delapan pengujian mencakup tiga pemeriksaan LoG dan lima pemeriksaan
+penghitungan koin. Pengujian dilakukan dengan:
+\begin{lstlisting}[style=terminal]
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe -m pytest -q
+\end{lstlisting}
+
+\begin{table}[H]
+\centering
+\caption{Cakupan dan hasil delapan pengujian otomatis.}
+\label{tab:pengujian}
+\small
+\begin{tabularx}{\textwidth}{@{}p{0.7cm}Xp{1.2cm}@{}}
+\toprule
+\textbf{No.} & \textbf{Pemeriksaan} & \textbf{Hasil}\\
+\midrule
+1 & LoG pada citra konstan $0{,}4$ dengan $\sigma=0{,}1$ menghasilkan $-80$. & Lulus\\
+2 & Dua respons dengan sigma sama mempunyai selisih nol persis. & Lulus\\
+3 & Impuls pada sigma 1 dan 2 menghasilkan respons bertanda; penyimpanan
+\kode{.npy} mempertahankan pengurangan. & Lulus\\
+4 & Seluruh 100 objek dipasangkan ke pusat acuan; diameter dan kelompok
+ukurannya sesuai toleransi pemeriksaan. & Lulus\\
+5 & Inversi intensitas, sehingga latar menjadi terang, mempertahankan
+deteksi dan kelompok seluruh koin. & Lulus\\
+6 & Resolusi setengah mempertahankan jumlah dan kelas; diameter mengikuti
+perubahan skala. & Lulus\\
+7 & Lubang diisi dan derau kecil dibuang pada contoh sembilan koin; hasil
+dua kelompok berjumlah tujuh dan dua. & Lulus\\
+8 & Citra seragam dan berkas citra kosong ditolak dengan pesan kesalahan. & Lulus\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Hasil pelaksanaan adalah \texttt{8 passed}. Pengujian pada sigma 1 dan 2
+merupakan pemeriksaan tambahan terhadap penyimpanan nilai bertanda;
+hasil utama nomor 1 tetap memakai sigma $0{,}1$ dan $0{,}2$.
+Contoh sembilan koin menunjukkan bahwa jumlah hasil tidak dipaksa menjadi
+100. Keberhasilan pada data sintetis tidak menyatakan akurasi universal
+pada foto nyata dengan pencahayaan, perspektif, atau latar yang berbeda.

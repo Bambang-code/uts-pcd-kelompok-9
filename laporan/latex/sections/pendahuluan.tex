@@ -1,0 +1,55 @@
+\section{Pendahuluan}
+
+\subsection{Latar belakang dan tujuan}
+Pengolahan citra digital memungkinkan perubahan intensitas, pemisahan objek,
+dan pengukuran bentuk dilakukan secara komputasional. Laporan ini membahas
+penyelesaian dua bagian Ujian Tengah Semester mata kuliah Pengolahan Citra
+Digital, yaitu selisih respons \textit{Laplacian of Gaussian} pada soal nomor 1
+serta penghitungan koin menurut ukuran pada soal nomor 3 \cite{soal-uts}.
+
+Tujuan pekerjaan adalah mengimplementasikan algoritma dalam Python,
+menjelaskan tahapan dan dasar matematisnya, serta memeriksa hasil dengan data
+contoh dan pengujian otomatis. Pembahasan nomor 1 mempertahankan standar
+deviasi yang tertulis pada soal, yaitu $0{,}1$ dan $0{,}2$. Pembahasan nomor 3
+menggunakan fungsi \kode{regionprops} untuk mengukur setiap objek koin yang
+telah dipisahkan.
+
+\subsection{Ruang lingkup dan data}
+Laporan ini mencakup nomor 1 dan 3. Kode, citra masukan, serta hasil
+perhitungan tersimpan dalam direktori masing-masing soal. Folder
+\kode{soal2/} disediakan bagi bagian lain dari pekerjaan kelompok.
+
+\begin{table}[H]
+\centering
+\caption{Bahan masukan dan implementasi yang digunakan.}
+\label{tab:bahan}
+\small
+\begin{tabularx}{\textwidth}{@{}p{2.1cm}X@{}}
+\toprule
+\textbf{Bagian} & \textbf{Bahan dan program}\\
+\midrule
+Nomor 1 &
+Citra sintetis grayscale $384 \times 256$ piksel pada
+\path{soal1/data/citra_uji.png}; program \path{soal1/main.py}.\\
+\addlinespace
+Nomor 3 &
+Citra sintetis $1100 \times 1100$ piksel berisi 100 koin terpisah pada
+\path{soal3/data/koin_100.png}; program \path{soal3/main.py}.\\
+\addlinespace
+Validasi &
+Metadata koin pada \path{soal3/data/koin_100_ground_truth.json} serta
+pengujian pada \path{soal1/tests/} dan \path{soal3/tests/}.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Citra contoh dibuat secara sintetis melalui \path{buat_data_contoh.py}
+dengan \textit{seed} 9 agar dapat direproduksi. Citra koin bukan foto uang
+logam nyata. Data acuan atau \textit{ground truth} hanya dipakai untuk
+memeriksa hasil; program penghitung membaca citra tanpa mengambil jumlah
+atau ukuran koin dari metadata acuan.
+
+Kode lengkap dan berkas pendukung tersedia pada
+\href{https://github.com/Bambang-code/uts-pcd-kelompok-9}{repositori GitHub Kelompok 9}.
+Langkah pemasangan dan pelaksanaan disajikan pada
+Bagian~\ref{sec:reproduksi}.

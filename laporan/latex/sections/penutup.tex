@@ -1,0 +1,46 @@
+\section{Kesimpulan}
+Program nomor 1 membaca citra, menghitung dua respons LoG pada
+$\sigma=0{,}1$ dan $\sigma=0{,}2$ piksel, lalu menyimpan selisih
+\texttt{im1 - im2} sebagai data float64 bertanda. Visualisasi dibuat setelah
+pengurangan, sehingga penyesuaian tampilan tidak mengubah hasil numerik.
+Sigma yang sangat kecil menyebabkan bias respons pada grid diskret;
+hal tersebut perlu dibedakan dari perilaku ideal LoG kontinu.
+
+Program nomor 3 memisahkan koin melalui ambang Otsu dan komponen
+terhubung, mengukur luas serta diameter ekuivalen menggunakan
+\kode{regionprops}, kemudian menghitung jumlah tiap kelompok ukuran.
+Pada contoh sintetis, diperoleh 100 koin dalam empat kelompok, masing-masing
+25 buah. Delapan pengujian lulus. Penerapan bergantung pada asumsi koin
+terpisah, terlihat utuh, dan kontras terhadap latar seragam.
+
+\begin{thebibliography}{9}
+\raggedright
+\small
+\setstretch{1}
+\setlength{\itemsep}{3pt}
+\setlength{\parskip}{0pt}
+\addcontentsline{toc}{section}{Daftar Pustaka}
+\bibitem{soal-uts}
+Peter Rhatodirdjo Angka,
+\textit{UTS INF301 Pengolahan Citra Digital, Semester Gasal 2026/2027}.
+Program Studi Informatika, Fakultas Teknik, Universitas Katolik Widya
+Mandala Surabaya, 8 Oktober 2026. Dokumen soal yang diberikan.
+
+\bibitem{scipy-log}
+SciPy Developers,
+\textit{scipy.ndimage.gaussian\_laplace}.
+Dokumentasi resmi SciPy.
+\href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.gaussian_laplace.html}{Tersedia pada laman resmi SciPy}.
+
+\bibitem{skimage-regions}
+scikit-image Developers,
+\textit{skimage.measure.regionprops}.
+Dokumentasi resmi scikit-image.
+\href{https://scikit-image.org/docs/stable/api/skimage.measure.html#skimage.measure.regionprops}{Tersedia pada laman resmi scikit-image}.
+
+\bibitem{skimage-otsu}
+scikit-image Developers,
+\textit{skimage.filters.threshold\_otsu}.
+Dokumentasi resmi scikit-image.
+\href{https://scikit-image.org/docs/stable/api/skimage.filters.html#skimage.filters.threshold_otsu}{Tersedia pada laman resmi scikit-image}.
+\end{thebibliography}

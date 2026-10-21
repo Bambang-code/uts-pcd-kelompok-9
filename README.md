@@ -42,6 +42,11 @@ Untuk demo, buka [perbandingan nomor 1](soal1/hasil/perbandingan.png) dan
 | `soal2/` | Folder yang disediakan untuk pekerjaan nomor 2 |
 | [soal3/main.py](soal3/main.py) | Segmentasi koin, `regionprops`, dan jumlah per kelompok ukuran |
 | [LAPORAN.md](LAPORAN.md) | Asumsi, kode semu, rumus, metode, hasil, dan batasan |
+| [laporan/latex/main.tex](laporan/latex/main.tex) | Sumber laporan LaTeX dengan sampul dan gambar hasil |
+| [Paket sumber LaTeX (ZIP)](laporan/latex/laporan-uts-pcd-kelompok-9.zip) | Seluruh sumber dan gambar untuk disunting atau dikompilasi |
+| [Laporan PDF](laporan/pdf/laporan-uts-pcd-kelompok-9.pdf) | Laporan siap dibaca dan dicetak |
+| [Presentasi PowerPoint](laporan/ppt/presentasi-uts-pcd-kelompok-9-biru.pptx) | Tema biru, 11 slide: sampul, 3 slide per soal, dan penutup; slide soal 2 masih kosong |
+| [Panduan presentasi](laporan/ppt/panduan-presentasi.md) | Alokasi waktu, persiapan demo, dan gambar cadangan |
 | `buat_data_contoh.py` | Membuat ulang data sintetis dengan seed tetap |
 | [soal1/data/](soal1/data/) | Citra uji LoG |
 | [soal1/hasil/](soal1/hasil/) | Array numerik, PNG hasil, panel perbandingan, metadata |

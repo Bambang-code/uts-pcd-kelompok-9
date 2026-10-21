@@ -1,0 +1,120 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[left=3cm,right=2.5cm,top=2.6cm,bottom=2.6cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx,float}
+\usepackage{booktabs,tabularx,array}
+\usepackage{xcolor,listings}
+\usepackage{setspace,enumitem}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{microtype}
+
+\definecolor{navy}{HTML}{18364F}
+\definecolor{muted}{HTML}{52616F}
+\definecolor{codebg}{HTML}{F4F6F8}
+\definecolor{linegray}{HTML}{D5DDE4}
+\hypersetup{
+  colorlinks=true,linkcolor=navy,urlcolor=navy,citecolor=navy,
+  pdftitle={Laporan UTS INF301 - Kelompok 9 - Nomor 1 dan 3},
+  pdfauthor={Bambang Herlambang; Dustin Pranata Wangsawidjaja}
+}
+\urlstyle{same}
+\setstretch{1.1}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{3pt}
+\setlength{\headheight}{14pt}
+\emergencystretch=2em
+\setlist{itemsep=2pt,topsep=4pt,leftmargin=*}
+\captionsetup{font=small,labelfont=bf,labelsep=period}
+\renewcommand{\contentsname}{Daftar Isi}
+\renewcommand{\figurename}{Gambar}
+\renewcommand{\tablename}{Tabel}
+\renewcommand{\refname}{Daftar Pustaka}
+\renewcommand{\lstlistingname}{Kode}
+\DeclareRobustCommand{\kode}[1]{{\urlstyle{tt}\nolinkurl{#1}}}
+
+\lstdefinestyle{pythoncode}{
+  language=Python,basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{navy}\bfseries,commentstyle=\color{muted},
+  stringstyle=\color{teal!60!black},numbers=left,
+  numberstyle=\tiny\color{muted},numbersep=8pt,
+  breaklines=true,breakatwhitespace=false,columns=fullflexible,
+  keepspaces=true,showstringspaces=false,tabsize=4,
+  frame=single,rulecolor=\color{linegray},backgroundcolor=\color{codebg},
+  framesep=6pt,aboveskip=10pt,belowskip=10pt
+}
+\lstdefinestyle{pseudocode}{
+  style=pythoncode,language={},numbers=none,basicstyle=\ttfamily\small
+}
+\lstdefinestyle{terminal}{
+  style=pythoncode,language={},numbers=none,basicstyle=\ttfamily\footnotesize
+}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small INF301 -- Pengolahan Citra Digital}
+\fancyhead[R]{\small Kelompok 9}
+\fancyfoot[C]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\raggedbottom
+
+\begin{document}
+\hypersetup{pageanchor=false}
+\newgeometry{left=3cm,right=3cm,top=3cm,bottom=3cm}
+\begin{titlepage}
+\begingroup
+\centering
+\fontfamily{ptm}\selectfont
+\fontsize{14}{16}\selectfont
+\setstretch{1}
+\setlength{\parskip}{0pt}
+{\bfseries LAPORAN UJIAN TENGAH SEMESTER\par}
+\vspace{1cm}
+{\bfseries PENGOLAHAN CITRA DIGITAL (INF301)\par}
+\vspace{0.15cm}
+{\bfseries PENYELESAIAN SOAL NOMOR 1 DAN 3\par}
+\vspace{0.4cm}
+\includegraphics[width=10cm]{images/logo-ukwms.png}\par
+\vspace{0.7cm}
+{\bfseries ANGGOTA TIM\par}
+\vspace{0.35cm}
+{\fontsize{12}{14}\selectfont
+\begin{tabular}{@{}l@{\hspace{1.3cm}}l@{}}
+Bambang Herlambang & 5803024019\\
+Dustin Pranata Wangsawidjaja & 5803024021\\
+\end{tabular}
+\par}
+\vfill
+{\bfseries
+PROGRAM STUDI INFORMATIKA\par
+\vspace{0.3cm}
+FAKULTAS TEKNIK\par
+\vspace{0.3cm}
+UNIVERSITAS KATOLIK WIDYA MANDALA\par
+\vspace{0.3cm}
+SURABAYA\par
+\vspace{0.3cm}
+2026\par}
+\endgroup
+\end{titlepage}
+\restoregeometry
+
+\pagenumbering{roman}
+\hypersetup{pageanchor=true}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\input{sections/pendahuluan}
+\clearpage
+\input{sections/soal1}
+\clearpage
+\input{sections/soal3}
+\clearpage
+\input{sections/pengujian}
+\input{sections/penutup}
+
+\end{document}
