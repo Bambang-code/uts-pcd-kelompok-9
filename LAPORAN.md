@@ -243,8 +243,8 @@ Perintah instalasi dan pengujian ada di [README.md](README.md). Dari folder
 repositori, jalankan masing-masing bagian dengan:
 
 ```powershell
-python soal1/main.py
-python soal3/main.py
+.\.venv\Scripts\python.exe soal1/main.py
+.\.venv\Scripts\python.exe soal3/main.py
 ```
 
 Lokasi data dan hasil default mengikuti folder masing-masing program.

@@ -4,20 +4,25 @@ Penyelesaian **nomor 1 dan 3** untuk INF301, semester gasal 2026/2027.
 Program, kode semu, penjelasan metode, data contoh, dan hasil eksekusi tersedia
 di repositori ini. Folder `soal2/` disiapkan untuk bagian anggota kelompok lain.
 
-## Cara cepat menjalankan untuk dosen
+## Cara menjalankan di Windows (PowerShell)
 
-Gunakan Python 3.10 atau lebih baru. Setelah mengunduh atau clone repositori,
-buka terminal di folder repositori, lalu jalankan:
+Gunakan Python 3.10 atau lebih baru. Buka terminal di folder repositori.
+Persiapan berikut cukup dilakukan sekali pada setiap komputer:
 
 ```powershell
-python -m pip install -r requirements.txt
-python soal1/main.py
-python soal3/main.py
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-Pemasangan library cukup dilakukan sekali pada Python yang digunakan.
-Virtual environment (`.venv`) bersifat opsional; program dapat dijalankan
-dengan Python yang sudah tersedia di komputer dosen setelah dependensi terpasang.
+Setelah persiapan selesai, jalankan program atau demo dengan:
+
+```powershell
+.\.venv\Scripts\python.exe soal1/main.py
+.\.venv\Scripts\python.exe soal3/main.py
+```
+
+Perintah tersebut langsung memakai Python di `.venv` tanpa perlu aktivasi.
+Folder `.venv` dibuat di masing-masing komputer dan diabaikan oleh Git.
 Hasil nomor 1 disimpan ke
 `soal1/hasil/`, sedangkan hasil nomor 3 disimpan ke `soal3/hasil/`.
 Kedua program dapat dijalankan tanpa membuka jendela grafik. Lokasi data dan
@@ -26,6 +31,8 @@ folder kerja saat program dipanggil.
 
 Data contoh dan hasil eksekusi sudah disertakan. Untuk memeriksa hasil tanpa
 menjalankan ulang, buka [LAPORAN.md](LAPORAN.md) serta folder hasil tiap soal.
+Untuk demo, buka [perbandingan nomor 1](soal1/hasil/perbandingan.png) dan
+[ringkasan visual nomor 3](soal3/hasil/ringkasan_visual.png).
 
 ## Berkas utama
 
@@ -51,7 +58,7 @@ dipakai untuk pengujian terpisah.
 ## Nomor 1
 
 ```powershell
-python soal1/main.py --input "D:\gambar\citra.png" --output-dir soal1/hasil_citra_saya
+.\.venv\Scripts\python.exe soal1/main.py --input "D:\gambar\citra.png" --output-dir soal1/hasil_citra_saya
 ```
 
 Default memakai [soal1/data/citra_uji.png](soal1/data/citra_uji.png), sigma 0,1 dan 0,2 **piksel**,
@@ -72,7 +79,7 @@ tersedia di laporan. Nilai sigma tidak diganti secara diam-diam.
 ## Nomor 3
 
 ```powershell
-python soal3/main.py --input "D:\gambar\koin.png" --output-dir soal3/hasil_koin_saya
+.\.venv\Scripts\python.exe soal3/main.py --input "D:\gambar\koin.png" --output-dir soal3/hasil_koin_saya
 ```
 
 Default memakai [soal3/data/koin_100.png](soal3/data/koin_100.png).
@@ -84,7 +91,7 @@ ekuivalen menggunakan toleransi relatif 8%.
 Pilihan penyesuaian:
 
 ```powershell
-python soal3/main.py --size-tolerance 0.05 --min-area 50 --expected-count 100
+.\.venv\Scripts\python.exe soal3/main.py --size-tolerance 0.05 --min-area 50 --expected-count 100
 ```
 
 `--min-area` bersatuan piksel persegi. `--expected-count` hanya menghasilkan
@@ -102,19 +109,19 @@ serta [anotasi_koin.png](soal3/hasil/anotasi_koin.png) untuk posisi dan kelompok
 ## Membuat ulang data dan menjalankan pengujian (opsional)
 
 ```powershell
-python buat_data_contoh.py --seed 9
-python soal1/main.py
-python soal3/main.py
-python -m pip install -r requirements-dev.txt
-python -m pytest -q
+.\.venv\Scripts\python.exe buat_data_contoh.py --seed 9
+.\.venv\Scripts\python.exe soal1/main.py
+.\.venv\Scripts\python.exe soal3/main.py
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe -m pytest -q
 ```
 
 Perintah `pytest -q` di atas menjalankan seluruh pengujian dari folder
 repositori. Untuk menjalankan pengujian tiap bagian secara terpisah:
 
 ```powershell
-python -m pytest -q soal1/tests
-python -m pytest -q soal3/tests
+.\.venv\Scripts\python.exe -m pytest -q soal1/tests
+.\.venv\Scripts\python.exe -m pytest -q soal3/tests
 ```
 
 Generator menyimpan data ke `soal1/data/` dan `soal3/data/` di dalam folder
