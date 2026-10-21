@@ -1,0 +1,32 @@
+{
+  "input": "soal1/data/citra_uji.png",
+  "shape": [
+    256,
+    384
+  ],
+  "sigma_1_px": 0.1,
+  "sigma_2_px": 0.2,
+  "filter": "scipy.ndimage.gaussian_laplace",
+  "mode": "reflect",
+  "hasil": "im1 - im2 (signed, float64)",
+  "png_range": [
+    -199.99999999999997,
+    199.99999999999997
+  ],
+  "png_mapping": "round(255 * (value / bound + 1) / 2); zero = 128",
+  "statistik": {
+    "im1": {
+      "min": -199.99999999999997,
+      "max": -18.039215686274506
+    },
+    "im2": {
+      "min": -49.99404472357536,
+      "max": -4.50787118386094
+    },
+    "hasil": {
+      "min": -150.0065771079099,
+      "max": -13.531344502413566
+    }
+  },
+  "catatan": "Sigma < 0.5 piksel dapat menghasilkan bias DC akibat sampling kernel; lihat LAPORAN.md."
+}
