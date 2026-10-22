@@ -1,8 +1,10 @@
 # UTS Pengolahan Citra Digital - Kelompok 9
 
-Penyelesaian **nomor 1 dan 3** untuk INF301, semester gasal 2026/2027.
-Program, kode semu, penjelasan metode, data contoh, dan hasil eksekusi tersedia
-di repositori ini. Folder `soal2/` disiapkan untuk bagian anggota kelompok lain.
+Penyelesaian **nomor 1, 2, dan 3** untuk INF301, semester gasal 2026/2027.
+Setiap soal memiliki folder program dan hasilnya sendiri. Nomor 2 dikerjakan
+oleh Dustin dan mencakup pemisahan karakter menggunakan `regionprops`.
+Laporan gabungan yang tersedia saat ini membahas nomor 1 dan 3; materi nomor 2
+tersedia di [README soal 2](soal2/README.md).
 
 ## Cara menjalankan di Windows (PowerShell)
 
@@ -18,20 +20,26 @@ Setelah persiapan selesai, jalankan program atau demo dengan:
 
 ```powershell
 .\.venv\Scripts\python.exe soal1/main.py
+Push-Location soal2
+..\.venv\Scripts\python.exe main.py
+Pop-Location
 .\.venv\Scripts\python.exe soal3/main.py
 ```
 
 Perintah tersebut langsung memakai Python di `.venv` tanpa perlu aktivasi.
 Folder `.venv` dibuat di masing-masing komputer dan diabaikan oleh Git.
-Hasil nomor 1 disimpan ke
-`soal1/hasil/`, sedangkan hasil nomor 3 disimpan ke `soal3/hasil/`.
-Kedua program dapat dijalankan tanpa membuka jendela grafik. Lokasi data dan
-hasil default mengikuti folder program, sehingga tidak bergantung pada
-folder kerja saat program dipanggil.
+Hasil disimpan ke `soal1/hasil/`, `soal2/hasil_karakter/`, dan `soal3/hasil/`.
+Nomor 2 dijalankan dari dalam folder `soal2/` karena program membaca
+`teks.png` dari folder kerja. `Push-Location` masuk ke folder tersebut dan
+`Pop-Location` kembali ke folder utama. Program nomor 2 membuka jendela
+visualisasi; tutup jendelanya agar perintah berikutnya dapat dilanjutkan.
+Program nomor 1 dan 3 berjalan tanpa jendela grafik, dengan lokasi data dan
+hasil default mengikuti folder program.
 
 Data contoh dan hasil eksekusi sudah disertakan. Untuk memeriksa hasil tanpa
 menjalankan ulang, buka [LAPORAN.md](LAPORAN.md) serta folder hasil tiap soal.
-Untuk demo, buka [perbandingan nomor 1](soal1/hasil/perbandingan.png) dan
+Untuk demo, buka [perbandingan nomor 1](soal1/hasil/perbandingan.png),
+[segmentasi karakter nomor 2](soal2/hasil_karakter/_visualisasi_bbox.png), dan
 [ringkasan visual nomor 3](soal3/hasil/ringkasan_visual.png).
 
 ## Berkas utama
@@ -39,23 +47,26 @@ Untuk demo, buka [perbandingan nomor 1](soal1/hasil/perbandingan.png) dan
 | Berkas | Kegunaan |
 | --- | --- |
 | [soal1/main.py](soal1/main.py) | LoG sigma 0,1 dan 0,2; simpan `im1`, `im2`, dan selisih |
-| `soal2/` | Folder yang disediakan untuk pekerjaan nomor 2 |
+| [soal2/main.py](soal2/main.py) | Segmentasi karakter dengan `regionprops` dan simpan gambar tiap karakter |
+| [soal2/README.md](soal2/README.md) | Penjelasan metode dan hasil pekerjaan Dustin |
 | [soal3/main.py](soal3/main.py) | Segmentasi koin, `regionprops`, dan jumlah per kelompok ukuran |
-| [LAPORAN.md](LAPORAN.md) | Asumsi, kode semu, rumus, metode, hasil, dan batasan |
-| [laporan/latex/main.tex](laporan/latex/main.tex) | Sumber laporan LaTeX dengan sampul dan gambar hasil |
+| [LAPORAN.md](LAPORAN.md) | Asumsi, kode semu, rumus, metode, hasil, dan batasan nomor 1 dan 3 |
+| [laporan/latex/main.tex](laporan/latex/main.tex) | Sumber laporan LaTeX nomor 1 dan 3 dengan sampul dan gambar hasil |
 | [Paket sumber LaTeX (ZIP)](laporan/latex/laporan-uts-pcd-kelompok-9.zip) | Seluruh sumber dan gambar untuk disunting atau dikompilasi |
-| [Laporan PDF](laporan/pdf/laporan-uts-pcd-kelompok-9.pdf) | Laporan siap dibaca dan dicetak |
+| [Laporan PDF](laporan/pdf/laporan-uts-pcd-kelompok-9.pdf) | Laporan nomor 1 dan 3 siap dibaca dan dicetak |
 | [Presentasi PowerPoint](laporan/ppt/presentasi-uts-pcd-kelompok-9-biru.pptx) | Tema biru, 11 slide: sampul, 3 slide per soal, dan penutup; slide soal 2 masih kosong |
 | [Panduan presentasi](laporan/ppt/panduan-presentasi.md) | Alokasi waktu, persiapan demo, dan gambar cadangan |
 | `buat_data_contoh.py` | Membuat ulang data sintetis dengan seed tetap |
 | [soal1/data/](soal1/data/) | Citra uji LoG |
 | [soal1/hasil/](soal1/hasil/) | Array numerik, PNG hasil, panel perbandingan, metadata |
+| [soal2/teks.png](soal2/teks.png) | Citra teks masukan untuk segmentasi karakter |
+| [soal2/hasil_karakter/](soal2/hasil_karakter/) | 18 gambar karakter terpisah dan visualisasi kotak pembatas |
 | [soal3/data/](soal3/data/) | Citra 100 koin dan ground truth untuk validasi |
 | [soal3/hasil/](soal3/hasil/) | Mask, label, anotasi, tabel pengukuran CSV, ringkasan JSON |
 | [soal1/tests/test_log.py](soal1/tests/test_log.py) | Pengujian numerik LoG dan selisih bertanda |
 | [soal3/tests/test_koin.py](soal3/tests/test_koin.py) | Pengujian segmentasi dan penghitungan koin |
 
-Data contoh adalah **simulasi**, bukan foto koin nyata. Citra koin memiliki
+Data contoh nomor 1 dan 3 adalah **simulasi**. Citra koin bukan foto koin nyata dan memiliki
 empat ukuran, masing-masing 25 buah. Program penghitung hanya membaca gambar;
 berkas [soal3/data/koin_100_ground_truth.json](soal3/data/koin_100_ground_truth.json)
 dipakai untuk pengujian terpisah.
@@ -80,6 +91,35 @@ bias DC; tampilan hasil dapat menyerupai negatif citra. Penjelasan numeriknya
 tersedia di laporan. Nilai sigma tidak diganti secara diam-diam.
 
 ![Perbandingan hasil nomor 1](soal1/hasil/perbandingan.png)
+
+## Nomor 2
+
+Mulai dari folder utama repositori, jalankan:
+
+```powershell
+Push-Location soal2
+..\.venv\Scripts\python.exe main.py
+Pop-Location
+```
+
+Program membaca [teks.png](soal2/teks.png), mengubahnya menjadi grayscale,
+menerapkan ambang Otsu, membersihkan objek kecil, lalu memberi label komponen
+terhubung. `regionprops` menyediakan kotak pembatas, mask tiap karakter, dan
+centroid. Mask setiap region disimpan secara terpisah dengan margin hitam.
+Pengurutan karakter memakai RANSAC pada centroid untuk mengelompokkan baris
+teks yang miring.
+
+Hasil pada citra yang disertakan: **18 karakter** (ZEUS, TWINPEAK, dan ACOSTA).
+Gambar `karakter_01.png` sampai `karakter_18.png` serta visualisasi kotak
+pembatas berada di [soal2/hasil_karakter/](soal2/hasil_karakter/).
+Tutup jendela visualisasi setelah selesai agar terminal dapat melanjutkan.
+
+Asumsi program adalah karakter terang pada latar gelap dan tidak saling
+bersentuhan. Karakter bersentuhan dapat tergabung, sedangkan karakter yang
+memiliki bagian terpisah dapat terdeteksi sebagai beberapa objek.
+Penjelasan lebih lanjut tersedia di [README soal 2](soal2/README.md).
+
+![Segmentasi karakter nomor 2](soal2/hasil_karakter/_visualisasi_bbox.png)
 
 ## Nomor 3
 
@@ -122,7 +162,8 @@ serta [anotasi_koin.png](soal3/hasil/anotasi_koin.png) untuk posisi dan kelompok
 ```
 
 Perintah `pytest -q` di atas menjalankan seluruh pengujian dari folder
-repositori. Untuk menjalankan pengujian tiap bagian secara terpisah:
+repositori. Saat ini delapan pengujian otomatis mencakup nomor 1 dan 3.
+Untuk menjalankan pengujian tiap bagian secara terpisah:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q soal1/tests
