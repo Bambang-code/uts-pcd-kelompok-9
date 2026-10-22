@@ -1,8 +1,14 @@
 # UTS Pengolahan Citra Digital - Kelompok 9
 
 Penyelesaian **nomor 1, 2, dan 3** untuk INF301, semester gasal 2026/2027.
-Setiap soal memiliki folder program dan hasilnya sendiri. Nomor 2 dikerjakan
-oleh Dustin dan mencakup pemisahan karakter menggunakan `regionprops`.
+Setiap soal memiliki folder program dan hasilnya sendiri. Pembagian pekerjaan:
+
+| Anggota | NRP | Bagian |
+| --- | --- | --- |
+| Bambang Herlambang | 5803024019 | Nomor 1 dan 3 |
+| Dustin Pranata Wangsawidjaja | 5803024021 | Nomor 2 |
+
+Nomor 2 mencakup pemisahan karakter menggunakan `regionprops`.
 Laporan gabungan yang tersedia saat ini membahas nomor 1 dan 3; materi nomor 2
 tersedia di [README soal 2](soal2/README.md).
 
