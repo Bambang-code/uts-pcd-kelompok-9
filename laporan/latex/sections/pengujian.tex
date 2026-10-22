@@ -15,20 +15,32 @@ persiapan berikut cukup dilakukan sekali:
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 \end{lstlisting}
-Setelah dependensi terpasang, jalankan kedua program:
+Setelah dependensi terpasang, jalankan ketiga program:
 \begin{lstlisting}[style=terminal]
 .\.venv\Scripts\python.exe soal1/main.py
+Push-Location soal2
+..\.venv\Scripts\python.exe main.py
+Pop-Location
 .\.venv\Scripts\python.exe soal3/main.py
 \end{lstlisting}
 Pemanggilan langsung interpreter tersebut tidak memerlukan aktivasi
 lingkungan. Folder \kode{.venv} dibuat pada masing-masing komputer dan
 diabaikan oleh Git.
 
+Nomor 2 dijalankan dari folder \kode{soal2/} karena lokasi masukan
+dan keluaran mengikuti folder kerja. Tutup jendela visualisasi agar terminal
+dapat melanjutkan. Kode pekerjaan Dustin dipertahankan.
+
 \subsection{Berkas keluaran}
 Hasil nomor 1 tersimpan di \path{soal1/hasil/}. Berkas \kode{im1.npy},
 \kode{im2.npy}, dan \kode{hasil.npy} menyimpan data numerik bertanda.
 Berkas PNG merupakan visualisasi, sedangkan \kode{metadata.json}
 menyimpan parameter dan statistik respons.
+
+Hasil nomor 2 tersimpan di \path{soal2/hasil_karakter/}: 18 gambar
+karakter serta \kode{_visualisasi_bbox.png}. Pemeriksaan eksekusi dan hasil
+nomor 2 dijelaskan pada Bagian~\ref{sec:soal2}; tidak termasuk dalam
+delapan tes otomatis nomor 1 dan 3.
 
 Hasil nomor 3 tersimpan di \path{soal3/hasil/}. Berkas \kode{mask_koin.png}
 menunjukkan segmentasi; \kode{label_koin.png} membedakan objek;

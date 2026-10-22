@@ -4,7 +4,7 @@ Dokumen utama: [main.tex](main.tex).
 Hasil PDF: [laporan-uts-pcd-kelompok-9.pdf](../pdf/laporan-uts-pcd-kelompok-9.pdf).
 
 Sampul mencantumkan Bambang Herlambang (5803024019) dan Dustin Pranata
-Wangsawidjaja (5803024021). Laporan mencakup soal nomor 1 dan 3.
+Wangsawidjaja (5803024021). Laporan mencakup soal nomor 1, 2, dan 3.
 
 Struktur sumber:
 
@@ -24,3 +24,5 @@ menggunakan pdfLaTeX agar daftar isi, nomor gambar, dan sitasi diperbarui.
 Data hasil pada laporan merupakan hasil eksekusi dengan parameter default.
 Jika kode atau gambar masukan diubah, jalankan ulang program dan perbarui
 salinan gambar serta angka dalam sumber sebelum mengompilasi kembali.
+
+Pembagian tugas: Bambang mengerjakan nomor 1 dan 3; Dustin mengerjakan nomor 2.

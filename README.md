@@ -9,8 +9,9 @@ Setiap soal memiliki folder program dan hasilnya sendiri. Pembagian pekerjaan:
 | Dustin Pranata Wangsawidjaja | 5803024021 | Nomor 2 |
 
 Nomor 2 mencakup pemisahan karakter menggunakan `regionprops`.
-Laporan gabungan yang tersedia saat ini membahas nomor 1 dan 3; materi nomor 2
-tersedia di [README soal 2](soal2/README.md).
+Laporan gabungan dan presentasi mencakup ketiga soal. Panduan khusus tersedia
+di [README soal 1](soal1/README.md), [README soal 2](soal2/README.md), dan
+[README soal 3](soal3/README.md).
 
 ## Cara menjalankan di Windows (PowerShell)
 
@@ -56,11 +57,11 @@ Untuk demo, buka [perbandingan nomor 1](soal1/hasil/perbandingan.png),
 | [soal2/main.py](soal2/main.py) | Segmentasi karakter dengan `regionprops` dan simpan gambar tiap karakter |
 | [soal2/README.md](soal2/README.md) | Penjelasan metode dan hasil pekerjaan Dustin |
 | [soal3/main.py](soal3/main.py) | Segmentasi koin, `regionprops`, dan jumlah per kelompok ukuran |
-| [LAPORAN.md](LAPORAN.md) | Asumsi, kode semu, rumus, metode, hasil, dan batasan nomor 1 dan 3 |
-| [laporan/latex/main.tex](laporan/latex/main.tex) | Sumber laporan LaTeX nomor 1 dan 3 dengan sampul dan gambar hasil |
+| [LAPORAN.md](LAPORAN.md) | Asumsi, kode semu, rumus, metode, hasil, dan batasan ketiga soal |
+| [laporan/latex/main.tex](laporan/latex/main.tex) | Sumber laporan LaTeX ketiga soal dengan sampul dan gambar hasil |
 | [Paket sumber LaTeX (ZIP)](laporan/latex/laporan-uts-pcd-kelompok-9.zip) | Seluruh sumber dan gambar untuk disunting atau dikompilasi |
-| [Laporan PDF](laporan/pdf/laporan-uts-pcd-kelompok-9.pdf) | Laporan nomor 1 dan 3 siap dibaca dan dicetak |
-| [Presentasi PowerPoint](laporan/ppt/presentasi-uts-pcd-kelompok-9-biru.pptx) | Tema biru, 11 slide: sampul, 3 slide per soal, dan penutup; slide soal 2 masih kosong |
+| [Laporan PDF](laporan/pdf/laporan-uts-pcd-kelompok-9.pdf) | Laporan ketiga soal siap dibaca dan dicetak |
+| [Presentasi PowerPoint](laporan/ppt/presentasi-uts-pcd-kelompok-9-biru.pptx) | Tema biru, 11 slide: sampul, 3 slide per soal, dan penutup; seluruh materi terisi |
 | [Panduan presentasi](laporan/ppt/panduan-presentasi.md) | Alokasi waktu, persiapan demo, dan gambar cadangan |
 | `buat_data_contoh.py` | Membuat ulang data sintetis dengan seed tetap |
 | [soal1/data/](soal1/data/) | Citra uji LoG |

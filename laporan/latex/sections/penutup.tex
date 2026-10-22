@@ -6,6 +6,11 @@ pengurangan, sehingga penyesuaian tampilan tidak mengubah hasil numerik.
 Sigma yang sangat kecil menyebabkan bias respons pada grid diskret;
 hal tersebut perlu dibedakan dari perilaku ideal LoG kontinu.
 
+Program nomor 2 memakai komponen terhubung dan \kode{regionprops}
+untuk memisahkan 18 karakter pada citra contoh menjadi berkas individual.
+Mask tiap region mempertahankan orientasi karakter dan menghindari
+penyalinan karakter tetangga di dalam kotak pembatas.
+
 Program nomor 3 memisahkan koin melalui ambang Otsu dan komponen
 terhubung, mengukur luas serta diameter ekuivalen menggunakan
 \kode{regionprops}, kemudian menghitung jumlah tiap kelompok ukuran.
@@ -13,6 +18,7 @@ Pada contoh sintetis, diperoleh 100 koin dalam empat kelompok, masing-masing
 25 buah. Delapan pengujian lulus. Penerapan bergantung pada asumsi koin
 terpisah, terlihat utuh, dan kontras terhadap latar seragam.
 
+\clearpage
 \begin{thebibliography}{9}
 \raggedright
 \small

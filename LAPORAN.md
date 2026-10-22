@@ -1,4 +1,4 @@
-# Penyelesaian UTS INF301 - Nomor 1 dan 3
+# Penyelesaian UTS INF301 - Nomor 1, 2, dan 3
 
 **Kelompok 9 | Pengolahan Citra Digital | Gasal 2026/2027**
 
@@ -97,6 +97,60 @@ Hasil ini merupakan efek sampling kernel, sehingga gambar hasil tidak
 ditafsirkan semata-mata sebagai peta tepi. Program tetap memakai sigma sesuai
 soal. Untuk eksperimen tambahan, CLI menyediakan `--sigma-1` dan `--sigma-2`;
 simpan eksperimen tersebut ke folder berbeda dari hasil utama.
+
+## 2. Segmentasi karakter
+
+Bagian ini dikerjakan oleh **Dustin Pranata Wangsawidjaja (5803024021)**.
+Nomor 1 dan 3 dikerjakan oleh **Bambang Herlambang (5803024019)**.
+Program asli Dustin pada [soal2/main.py](soal2/main.py) dipertahankan.
+
+### Metode dan kode semu
+
+Citra teks dipisahkan dengan grayscale, Otsu, dan penghapusan objek di bawah
+10 piksel. Komponen dilabel dengan konektivitas 8. `regionprops` menyediakan
+`bbox`, `image`, dan `centroid`. Region dengan tinggi atau lebar bbox mencapai
+setengah dimensi citra disaring untuk menghapus border. Mask `region.image`
+menghindari ikut tersalinnya huruf tetangga dalam bbox, kemudian diberi margin
+hitam tiga piksel. RANSAC mengelompokkan centroid ke baris teks sebelum
+pengurutan atas ke bawah dan kiri ke kanan.
+
+```text
+Baca citra; ubah menjadi grayscale
+B = grayscale > ambang Otsu
+Jika rata-rata B > 0.5: balik B
+Hapus objek kecil dengan luas < 10
+Label komponen 8 tetangga; R = regionprops(label)
+Saring bbox yang tinggi atau lebarnya >= setengah dimensi citra
+Kelompokkan centroid ke baris dengan RANSAC; urutkan region
+Untuk setiap region:
+    karakter = uint8(region.image * 255)
+    Tambahkan margin hitam 3 piksel
+    Simpan karakter_XX.png
+```
+
+### Hasil dan batasan
+
+Eksekusi menghasilkan **18 gambar karakter**: ZEUS (4), TWINPEAK (8), dan
+ACOSTA (6). Setiap PNG yang diperiksa bersifat biner dan memuat satu komponen
+8 tetangga. Pemeriksaan ini terpisah dari delapan tes otomatis nomor 1 dan 3.
+Program melakukan segmentasi, bukan pengenalan identitas huruf/OCR.
+Karakter bersentuhan dapat tergabung dan karakter dengan bagian terpisah
+dapat menjadi beberapa objek. Pengurutan mengasumsikan baris hampir lurus
+dan tidak vertikal; RANSAC tidak diberi seed secara eksplisit.
+
+![Hasil segmentasi karakter](soal2/hasil_karakter/_visualisasi_bbox.png)
+
+Jalankan dari folder utama repositori dengan Python `.venv`:
+
+```powershell
+Push-Location soal2
+..\.venv\Scripts\python.exe main.py
+Pop-Location
+```
+
+Tutup jendela visualisasi agar terminal dapat melanjutkan. Hasil berada di
+[soal2/hasil_karakter/](soal2/hasil_karakter/). Lokasi masukan dan keluaran
+pada program nomor 2 mengikuti folder kerja saat eksekusi.
 
 ## 3. Jumlah koin untuk setiap ukuran
 

@@ -3,9 +3,9 @@
 \subsection{Latar belakang dan tujuan}
 Pengolahan citra digital memungkinkan perubahan intensitas, pemisahan objek,
 dan pengukuran bentuk dilakukan secara komputasional. Laporan ini membahas
-penyelesaian dua bagian Ujian Tengah Semester mata kuliah Pengolahan Citra
-Digital, yaitu selisih respons \textit{Laplacian of Gaussian} pada soal nomor 1
-serta penghitungan koin menurut ukuran pada soal nomor 3 \cite{soal-uts}.
+penyelesaian tiga bagian Ujian Tengah Semester mata kuliah Pengolahan Citra
+Digital, yaitu selisih respons \textit{Laplacian of Gaussian} pada soal nomor 1,
+segmentasi karakter pada soal nomor 2, serta penghitungan koin menurut ukuran pada soal nomor 3 \cite{soal-uts}.
 
 Tujuan pekerjaan adalah mengimplementasikan algoritma dalam Python,
 menjelaskan tahapan dan dasar matematisnya, serta memeriksa hasil dengan data
@@ -15,9 +15,9 @@ menggunakan fungsi \kode{regionprops} untuk mengukur setiap objek koin yang
 telah dipisahkan.
 
 \subsection{Ruang lingkup dan data}
-Laporan ini mencakup nomor 1 dan 3. Kode, citra masukan, serta hasil
-perhitungan tersimpan dalam direktori masing-masing soal. Folder
-\kode{soal2/} disediakan bagi bagian lain dari pekerjaan kelompok.
+Laporan ini mencakup nomor 1, 2, dan 3. Kode, citra masukan, serta hasil
+perhitungan tersimpan dalam direktori masing-masing soal. Nomor 1 dan 3 dikerjakan oleh Bambang Herlambang (5803024019),
+sedangkan nomor 2 dikerjakan oleh Dustin Pranata Wangsawidjaja (5803024021).
 
 \begin{table}[H]
 \centering
@@ -32,6 +32,9 @@ Nomor 1 &
 Citra sintetis grayscale $384 \times 256$ piksel pada
 \path{soal1/data/citra_uji.png}; program \path{soal1/main.py}.\\
 \addlinespace
+Nomor 2 & Citra teks pada \path{soal2/teks.png}; program
+\path{soal2/main.py}, dikerjakan oleh Dustin.\\
+\addlinespace
 Nomor 3 &
 Citra sintetis $1100 \times 1100$ piksel berisi 100 koin terpisah pada
 \path{soal3/data/koin_100.png}; program \path{soal3/main.py}.\\
@@ -43,7 +46,7 @@ pengujian pada \path{soal1/tests/} dan \path{soal3/tests/}.\\
 \end{tabularx}
 \end{table}
 
-Citra contoh dibuat secara sintetis melalui \path{buat_data_contoh.py}
+Citra contoh nomor 1 dan 3 dibuat secara sintetis melalui \path{buat_data_contoh.py}
 dengan \textit{seed} 9 agar dapat direproduksi. Citra koin bukan foto uang
 logam nyata. Data acuan atau \textit{ground truth} hanya dipakai untuk
 memeriksa hasil; program penghitung membaca citra tanpa mengambil jumlah
