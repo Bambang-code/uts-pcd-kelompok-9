@@ -42,7 +42,27 @@ yang dihitung adalah
 D=\mathrm{im1}-\mathrm{im2}.
 \end{equation}
 
+\clearpage
 \subsection{Algoritma dan implementasi}
+
+Program mengikuti empat langkah pada soal sebagai berikut.
+\begin{enumerate}[label=\alph*.,leftmargin=*,itemsep=2pt]
+\item \textbf{Baca citra (image).} Citra dibaca dari berkas masukan,
+diubah menjadi grayscale bila diperlukan, lalu dinormalisasi sebagai
+\kode{float64} dalam rentang $[0,1]$.
+\item \textbf{Gunakan filter LoG dengan standar deviasi $0{,}1$.}
+Terapkan filter pada citra masukan yang telah disiapkan, lalu simpan
+respons sebagai \kode{im1}.
+\item \textbf{Gunakan filter LoG dengan standar deviasi $0{,}2$.}
+Terapkan filter pada citra masukan yang sama, bukan pada \kode{im1},
+lalu simpan respons sebagai \kode{im2}.
+\item \textbf{Tentukan selisih dan simpan sebagai citra hasil.}
+Program menghitung \kode{hasil = im1 - im2} pada array \kode{float64}
+bertanda sebelum pemetaan tampilan. Keluaran disimpan sebagai
+\kode{hasil.npy} dan pratinjau citra \kode{hasil.png}.
+\end{enumerate}
+
+Langkah a--d dirangkum dalam kode semu berikut.
 
 \noindent\begin{minipage}{\textwidth}
 \begin{lstlisting}[style=pseudocode,caption={Kode semu penyelesaian nomor 1.}]
@@ -61,11 +81,9 @@ SELESAI
 \end{lstlisting}
 \end{minipage}
 
-Bagian inti fungsi \kode{hitung_selisih_log} pada
-\kode{soal1/main.py} ditunjukkan berikut. Argumen bawaan
-\kode{sigma_1} dan \kode{sigma_2} masing-masing bernilai $0{,}1$ dan
-$0{,}2$. Pengurangan dilakukan langsung pada respons numerik, sebelum
-penyesuaian tampilan.
+Berikut inti fungsi \kode{hitung_selisih_log} pada \kode{soal1/main.py}.
+Nilai bawaan \kode{sigma_1} dan \kode{sigma_2} adalah $0{,}1$ dan $0{,}2$;
+pengurangan dilakukan sebelum penyesuaian tampilan.
 
 \noindent\begin{minipage}{\textwidth}
 \begin{lstlisting}[style=pythoncode,caption={Perhitungan kedua respons dan selisihnya.}]
