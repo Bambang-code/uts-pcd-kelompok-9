@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image, ImageOps
 from scipy import ndimage
-from skimage import color, filters, measure, util
+from skimage import color, filters, measure, segmentation, util
 
 SOAL_DIR = Path(__file__).resolve().parent
 
@@ -60,13 +60,48 @@ def baca_citra(path: Path) -> tuple[np.ndarray, np.ndarray]:
     return original, gray
 
 
-def segmentasi_koin(gray: np.ndarray, min_area: int) -> tuple[np.ndarray, dict]:
-    """Pisahkan objek dengan Otsu; mayoritas bingkai menentukan latar."""
+def segmentasi_koin(
+    gray: np.ndarray,
+    min_area: int,
+    *,
+    method: str = "otsu",
+    marker_low: float = 0.12,
+    marker_high: float = 0.6,
+) -> tuple[np.ndarray, dict]:
+    """Otsu untuk latar seragam; watershed opsional untuk gradien pencahayaan.
+
+    Watershed mengikuti gradien Sobel dari penanda latar dan objek.
+    Ambang penanda memakai intensitas ternormalisasi setelah penyesuaian
+    polaritas, sehingga objek diharapkan terang. Ambang perlu disesuaikan
+    pada foto lain; metode ini tidak menjamin pemisahan koin bersentuhan.
+    """
+    if method not in ("otsu", "watershed"):
+        raise ValueError("Metode segmentasi harus otsu atau watershed.")
+    if method == "watershed" and not (0 <= marker_low < marker_high <= 1):
+        raise ValueError("Penanda harus memenuhi 0 <= marker-low < marker-high <= 1.")
     threshold = float(filters.threshold_otsu(gray))
     bright = gray > threshold
     border = np.concatenate((bright[0], bright[-1], bright[1:-1, 0], bright[1:-1, -1]))
     background_is_bright = float(border.mean()) >= 0.5
     foreground = ~bright if background_is_bright else bright
+    marker_metadata = {}
+    if method == "watershed":
+        contrast = 1.0 - gray if background_is_bright else gray
+        markers = np.zeros(gray.shape, dtype=np.int32)
+        markers[contrast < marker_low] = 1  # Latar yang diyakini.
+        markers[contrast > marker_high] = 2  # Bagian terang dalam koin.
+        if not np.any(markers == 1) or not np.any(markers == 2):
+            raise ValueError(
+                "Penanda latar atau objek kosong; sesuaikan --marker-low dan --marker-high."
+            )
+        foreground = segmentation.watershed(filters.sobel(contrast), markers) == 2
+        marker_metadata = {
+            "ambang_penanda_latar": marker_low,
+            "ambang_penanda_objek": marker_high,
+            "jumlah_piksel_penanda_latar": int(np.count_nonzero(markers == 1)),
+            "jumlah_piksel_penanda_objek": int(np.count_nonzero(markers == 2)),
+            "gradien": "Sobel",
+        }
     foreground = ndimage.binary_fill_holes(foreground)
 
     initial_labels = measure.label(foreground, connectivity=2)
@@ -81,12 +116,18 @@ def segmentasi_koin(gray: np.ndarray, min_area: int) -> tuple[np.ndarray, dict]:
         )
 
     metadata = {
-        "metode": "Otsu + polaritas bingkai + isi lubang + filter luas + komponen 8-tetangga",
+        "metode": (
+            "Watershed gradien Sobel + penanda intensitas + polaritas bingkai"
+            " + isi lubang + filter luas + komponen 8-tetangga"
+            if method == "watershed" else
+            "Otsu + polaritas bingkai + isi lubang + filter luas + komponen 8-tetangga"
+        ),
         "ambang_otsu_gray_normalisasi": threshold,
         "latar": "terang" if background_is_bright else "gelap",
         "fraksi_bingkai_terang": float(border.mean()),
         "luas_minimum_px2": min_area,
         "jumlah_komponen_dibuang": int(np.count_nonzero(areas[1:] < min_area)),
+        **marker_metadata,
     }
     return labels, metadata
 
@@ -228,6 +269,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--input", type=Path, default=SOAL_DIR / "data" / "koin_100.png", help="Citra koin masukan.")
     parser.add_argument("--output-dir", type=Path, default=SOAL_DIR / "hasil", help="Folder hasil.")
     parser.add_argument(
+        "--method", choices=("otsu", "watershed"), default="otsu",
+        help="Otsu untuk soal utama; watershed untuk uji tambahan pencahayaan tidak merata.",
+    )
+    parser.add_argument("--marker-low", type=float, default=0.12, help="Ambang penanda latar watershed (0..1).")
+    parser.add_argument("--marker-high", type=float, default=0.6, help="Ambang penanda objek watershed (0..1).")
+    parser.add_argument(
         "--size-tolerance", type=float, default=0.08,
         help="Toleransi relatif diameter terhadap median kelompok; 0.08 berarti 8%% (default).",
     )
@@ -246,7 +293,10 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         original, gray = baca_citra(args.input)
-        labels, segmentation = segmentasi_koin(gray, args.min_area)
+        labels, segmentation_info = segmentasi_koin(
+            gray, args.min_area, method=args.method,
+            marker_low=args.marker_low, marker_high=args.marker_high,
+        )
         objects = ukur_objek(labels)
         groups = kelompokkan_ukuran(objects, args.size_tolerance)
         warnings = []
@@ -265,7 +315,12 @@ def main(argv: list[str] | None = None) -> int:
             "input": input_label.as_posix(),
             "tinggi_citra_px": int(labels.shape[0]),
             "lebar_citra_px": int(labels.shape[1]),
-            "asumsi": "Latar seragam, koin terpisah, ukuran dibandingkan pada skala citra yang sama.",
+            "asumsi": (
+                "Koin utuh dan terpisah pada latar polos dengan gradien pencahayaan; "
+                "penanda intensitas harus sesuai; ukuran pada skala citra yang sama."
+                if args.method == "watershed" else
+                "Latar seragam, koin terpisah, ukuran dibandingkan pada skala citra yang sama."
+            ),
             "jumlah_koin": len(objects),
             "jumlah_diharapkan": args.expected_count if args.expected_count else None,
             "jumlah_sesuai_harapan": len(objects) == args.expected_count if args.expected_count else None,
@@ -273,7 +328,7 @@ def main(argv: list[str] | None = None) -> int:
             "definisi_ukuran": "Diameter ekuivalen = sqrt(4 * luas / pi), satuan piksel.",
             "metode_pengelompokan": "Urut diameter menaik; semua anggota berjarak <= toleransi * median calon kelompok.",
             "toleransi_ukuran_relatif": args.size_tolerance,
-            "segmentasi": segmentation,
+            "segmentasi": segmentation_info,
             "kelompok_ukuran": groups,
             "peringatan": warnings,
             "berkas_hasil": [

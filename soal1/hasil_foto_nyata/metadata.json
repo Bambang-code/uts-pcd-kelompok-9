@@ -1,0 +1,32 @@
+{
+  "input": "soal1/data/foto_kamera_scikit.png",
+  "shape": [
+    512,
+    512
+  ],
+  "sigma_1_px": 0.1,
+  "sigma_2_px": 0.2,
+  "filter": "scipy.ndimage.gaussian_laplace",
+  "mode": "reflect",
+  "hasil": "im1 - im2 (signed, float64)",
+  "png_range": [
+    -199.99999999999997,
+    199.99999999999997
+  ],
+  "png_mapping": "round(255 * (value / bound + 1) / 2); zero = 128",
+  "statistik": {
+    "im1": {
+      "min": -199.99999999999997,
+      "max": -0.0
+    },
+    "im2": {
+      "min": -49.99206996957647,
+      "max": 7.562905620717866e-05
+    },
+    "hasil": {
+      "min": -150.00931656349098,
+      "max": -7.562905620717866e-05
+    }
+  },
+  "catatan": "Sigma < 0.5 piksel dapat menghasilkan bias DC akibat sampling kernel; lihat LAPORAN.md."
+}

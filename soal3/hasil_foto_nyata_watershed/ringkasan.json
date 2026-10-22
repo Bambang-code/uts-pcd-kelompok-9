@@ -1,0 +1,112 @@
+{
+  "soal": 3,
+  "input": "soal3/data/koin_nyata_scikit.png",
+  "tinggi_citra_px": 303,
+  "lebar_citra_px": 384,
+  "asumsi": "Koin utuh dan terpisah pada latar polos dengan gradien pencahayaan; penanda intensitas harus sesuai; ukuran pada skala citra yang sama.",
+  "jumlah_koin": 24,
+  "jumlah_diharapkan": 24,
+  "jumlah_sesuai_harapan": true,
+  "jumlah_kelompok_ukuran": 5,
+  "definisi_ukuran": "Diameter ekuivalen = sqrt(4 * luas / pi), satuan piksel.",
+  "metode_pengelompokan": "Urut diameter menaik; semua anggota berjarak <= toleransi * median calon kelompok.",
+  "toleransi_ukuran_relatif": 0.08,
+  "segmentasi": {
+    "metode": "Watershed gradien Sobel + penanda intensitas + polaritas bingkai + isi lubang + filter luas + komponen 8-tetangga",
+    "ambang_otsu_gray_normalisasi": 0.419921875,
+    "latar": "gelap",
+    "fraksi_bingkai_terang": 0.3007299270072993,
+    "luas_minimum_px2": 50,
+    "jumlah_komponen_dibuang": 1,
+    "ambang_penanda_latar": 0.12,
+    "ambang_penanda_objek": 0.6,
+    "jumlah_piksel_penanda_latar": 7374,
+    "jumlah_piksel_penanda_objek": 23299,
+    "gradien": "Sobel"
+  },
+  "kelompok_ukuran": [
+    {
+      "kelompok_ukuran": 1,
+      "jumlah_koin": 10,
+      "diameter_median_px": 38.48867402900639,
+      "diameter_rata_rata_px": 38.78409191414015,
+      "diameter_min_px": 37.03078435139837,
+      "diameter_max_px": 41.53600345623234,
+      "id_objek": [
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        11,
+        12,
+        17,
+        18
+      ]
+    },
+    {
+      "kelompok_ukuran": 2,
+      "jumlah_koin": 8,
+      "diameter_median_px": 44.54402031539306,
+      "diameter_rata_rata_px": 44.82735177089452,
+      "diameter_min_px": 42.46065467400368,
+      "diameter_max_px": 47.40535620009159,
+      "id_objek": [
+        2,
+        3,
+        14,
+        15,
+        16,
+        22,
+        23,
+        24
+      ]
+    },
+    {
+      "kelompok_ukuran": 3,
+      "jumlah_koin": 2,
+      "diameter_median_px": 49.90868062732331,
+      "diameter_rata_rata_px": 49.90868062732331,
+      "diameter_min_px": 49.443097858968265,
+      "diameter_max_px": 50.37426339567835,
+      "id_objek": [
+        7,
+        21
+      ]
+    },
+    {
+      "kelompok_ukuran": 4,
+      "jumlah_koin": 3,
+      "diameter_median_px": 55.97716069606635,
+      "diameter_rata_rata_px": 56.08596195830443,
+      "diameter_min_px": 54.700209598571305,
+      "diameter_max_px": 57.58051558027562,
+      "id_objek": [
+        1,
+        19,
+        20
+      ]
+    },
+    {
+      "kelompok_ukuran": 5,
+      "jumlah_koin": 1,
+      "diameter_median_px": 63.239587364349134,
+      "diameter_rata_rata_px": 63.239587364349134,
+      "diameter_min_px": 63.239587364349134,
+      "diameter_max_px": 63.239587364349134,
+      "id_objek": [
+        13
+      ]
+    }
+  ],
+  "peringatan": [],
+  "berkas_hasil": [
+    "mask_koin.png",
+    "label_koin.png",
+    "anotasi_koin.png",
+    "ringkasan_visual.png",
+    "objek_koin.csv",
+    "ringkasan.json"
+  ]
+}

@@ -35,6 +35,16 @@ Untuk memakai gambar sendiri:
 .\.venv\Scripts\python.exe soal1/main.py --input "D:\gambar\citra.png" --output-dir soal1/hasil_citra_saya
 ```
 
+Uji tambahan dengan foto nyata 512 x 512 piksel tersedia pada
+[UJI_FOTO_NYATA.md](UJI_FOTO_NYATA.md). Jalankan dengan:
+
+```powershell
+.\.venv\Scripts\python.exe soal1/main.py --input soal1/data/foto_kamera_scikit.png --output-dir soal1/hasil_foto_nyata
+```
+
+Hasilnya disimpan terpisah dari contoh sintetis. Sigma tetap 0,1 dan 0,2;
+perilaku bias DC pada sigma kecil juga terlihat pada foto nyata tersebut.
+
 ## Metode dan kode semu
 
 1. Baca citra grayscale, RGB, atau RGBA. Transparansi RGBA dikompositkan ke putih.

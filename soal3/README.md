@@ -41,6 +41,10 @@ Untuk memakai gambar sendiri:
 
 ## Metode dan kode semu
 
+Bagian ini menjelaskan metode bawaan `--method otsu` sesuai asumsi soal.
+Untuk pengembangan tambahan pada foto dengan pencahayaan tidak merata,
+tersedia `--method watershed`; lihat [uji foto nyata](UJI_FOTO_NYATA.md).
+
 1. Baca citra, konversi ke grayscale, dan normalisasi ke rentang `[0, 1]`.
 2. Gunakan ambang Otsu. Mayoritas piksel bingkai menentukan polaritas latar.
 3. Isi lubang mask dan buang komponen dengan luas kurang dari 50 piksel persegi.
@@ -130,6 +134,11 @@ Dari folder utama repositori:
 Lima pengujian pada [tests/test_koin.py](tests/test_koin.py) mencakup
 kecocokan terhadap data acuan, inversi latar, perubahan skala, lubang dan
 derau pada contoh sembilan koin, serta penolakan masukan seragam atau kosong.
+
+Empat kasus tambahan pada [tests/test_watershed.py](tests/test_watershed.py)
+memeriksa mask pada gradien latar terang/gelap, pemetaan 24 pusat koin pada
+foto nyata, serta penolakan penanda tidak valid. Total pengujian proyek
+adalah 12: tiga LoG, lima koin inti, dan empat kasus watershed.
 
 Koin bersentuhan dapat menyatu menjadi satu komponen. Koin terpotong,
 bayangan, latar bertekstur, dan perspektif dapat mengganggu hasil. Ukuran

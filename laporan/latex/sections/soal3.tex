@@ -206,3 +206,53 @@ Karena itu, hasil pada data sintetis ini menunjukkan keberhasilan pada
 asumsi yang dinyatakan, dan belum membuktikan keandalan pada seluruh
 foto koin nyata. Parameter luas minimum dan toleransi ukuran tetap
 perlu diperiksa bersama mask dan anotasi ketika memakai citra lain.
+
+\clearpage
+\subsection{Pengembangan tambahan: foto dengan pencahayaan tidak merata}
+\label{sec:koin-watershed}
+
+Pengembangan ini menguji kondisi di luar asumsi latar seragam pada soal.
+Metode utama tetap Otsu. Pilihan \kode{--method watershed} memakai gradien
+Sobel sebagai peta batas dan penanda intensitas untuk memisahkan objek
+dari latar, mengikuti contoh resmi scikit-image~\cite{skimage-watershed}.
+Setelah normalisasi dan penyesuaian polaritas agar objek terang, piksel
+dengan intensitas di bawah $0{,}12$ menjadi penanda latar dan piksel di atas
+$0{,}6$ menjadi penanda objek. Watershed menentukan kelas piksel sisanya.
+Ambang tersebut merupakan parameter awal untuk foto uji, dapat disesuaikan
+melalui \kode{--marker-low} dan \kode{--marker-high}, dan tidak berlaku
+universal. Pengisian lubang, filter luas, pengukuran \kode{regionprops},
+serta pengelompokan ukuran mengikuti tahap berikutnya yang sama.
+
+Foto \kode{skimage.data.coins()} berisi 24 koin, berukuran
+$303\times384$ piksel, dan berasal dari koleksi Brooklyn Museum menurut
+dokumentasi scikit-image~\cite{skimage-coins}. Foto ini merupakan
+\textbf{uji tambahan, bukan pengganti citra utama 100 koin}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.31\textwidth]{images/koin-foto-nyata.png}\hfill
+\includegraphics[width=0.31\textwidth]{images/koin-mask-otsu.png}\hfill
+\includegraphics[width=0.31\textwidth]{images/koin-mask-watershed.png}
+\caption{Dari kiri: foto asli, mask Otsu, dan mask watershed. Pada Otsu,
+koin kiri atas menyatu dengan latar terang; watershed memisahkannya.}
+\end{figure}
+
+Kedua metode menghasilkan 24 region. Namun, jumlah yang sama tidak
+menjamin segmentasi benar. Pada Otsu, satu region menggabungkan koin kiri
+atas dengan latar, menghasilkan diameter ekuivalen sekitar $109{,}62$ piksel.
+Pada watershed, 24 pusat acuan yang ditandai secara visual masing-masing
+berada pada region berbeda, dengan selisih centroid kurang dari 3 piksel;
+seluruh kotak pembatas juga terpisah dari bingkai. Ini memeriksa lokasi
+dan identitas objek, bukan ketepatan setiap piksel mask atau diameter fisik.
+Lima kelompok diameter piksel berjumlah 10, 8, 2, 3, dan 1; kelompok
+tersebut belum divalidasi sebagai kategori ukuran fisik atau nominal uang.
+
+\begin{lstlisting}[style=terminal]
+.\.venv\Scripts\python.exe soal3/main.py --input soal3/data/koin_nyata_scikit.png --method watershed --expected-count 24 --output-dir soal3/hasil_foto_nyata_watershed
+\end{lstlisting}
+
+Pemeriksaan tambahan mencakup foto ini serta citra dengan gradien latar
+dan inversi intensitas. Metode tetap memerlukan penanda yang sesuai dan
+koin terpisah; belum menjamin keberhasilan pada semua pencahayaan atau
+latar bertekstur. Pada metode bawaan, mask dan CSV pengukuran 100 koin
+sintetis tetap identik dengan hasil sebelum pengembangan.

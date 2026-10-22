@@ -15,8 +15,11 @@ Program nomor 3 memisahkan koin melalui ambang Otsu dan komponen
 terhubung, mengukur luas serta diameter ekuivalen menggunakan
 \kode{regionprops}, kemudian menghitung jumlah tiap kelompok ukuran.
 Pada contoh sintetis, diperoleh 100 koin dalam empat kelompok, masing-masing
-25 buah. Delapan pengujian lulus. Penerapan bergantung pada asumsi koin
+25 buah. Dua belas pengujian lulus. Penerapan metode utama bergantung pada asumsi koin
 terpisah, terlihat utuh, dan kontras terhadap latar seragam.
+Pengembangan watershed pada satu foto 24 koin memperbaiki pemisahan
+objek dari latar yang tidak merata, dengan batasan sebagaimana dijelaskan
+pada Bagian~\ref{sec:koin-watershed}.
 
 \clearpage
 \begin{thebibliography}{9}
@@ -49,4 +52,15 @@ scikit-image Developers,
 \textit{skimage.filters.threshold\_otsu}.
 Dokumentasi resmi scikit-image.
 \href{https://scikit-image.org/docs/stable/api/skimage.filters.html#skimage.filters.threshold_otsu}{Tersedia pada laman resmi scikit-image}.
+\bibitem{skimage-watershed}
+scikit-image Developers,
+\textit{Comparing edge-based and region-based segmentation}.
+\href{https://scikit-image.org/docs/stable/auto_examples/applications/plot_coins_segmentation.html}{Contoh resmi segmentasi koin dengan Sobel dan watershed}.
+
+\bibitem{skimage-coins}
+scikit-image Developers, \textit{skimage.data.coins}.
+\href{https://scikit-image.org/docs/stable/api/skimage.data.html#skimage.data.coins}{Dokumentasi foto koin, sumber, dan keterangan hak cipta}.
+\bibitem{skimage-camera}
+scikit-image Developers, \textit{skimage.data.camera}.
+\href{https://scikit-image.org/docs/stable/api/skimage.data.html#skimage.data.camera}{Dokumentasi foto kamera dan lisensi CC0 oleh Lav Varshney}.
 \end{thebibliography}

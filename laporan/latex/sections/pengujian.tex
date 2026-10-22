@@ -40,7 +40,7 @@ menyimpan parameter dan statistik respons.
 Hasil nomor 2 tersimpan di \path{soal2/hasil_karakter/}: 18 gambar
 karakter serta \kode{_visualisasi_bbox.png}. Pemeriksaan eksekusi dan hasil
 nomor 2 dijelaskan pada Bagian~\ref{sec:soal2}; tidak termasuk dalam
-delapan tes otomatis nomor 1 dan 3.
+tes otomatis nomor 1 dan 3.
 
 Hasil nomor 3 tersimpan di \path{soal3/hasil/}. Berkas \kode{mask_koin.png}
 menunjukkan segmentasi; \kode{label_koin.png} membedakan objek;
@@ -49,8 +49,8 @@ tersimpan di \kode{objek_koin.csv}, sedangkan jumlah serta statistik setiap
 kelompok tersimpan di \kode{ringkasan.json}.
 
 \subsection{Pemeriksaan otomatis}
-Delapan pengujian mencakup tiga pemeriksaan LoG dan lima pemeriksaan
-penghitungan koin. Pengujian dilakukan dengan:
+Dua belas pengujian mencakup tiga pemeriksaan LoG, lima pemeriksaan koin
+inti, dan empat kasus pengembangan watershed. Pengujian dilakukan dengan:
 \begin{lstlisting}[style=terminal]
 .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 .\.venv\Scripts\python.exe -m pytest -q
@@ -58,7 +58,7 @@ penghitungan koin. Pengujian dilakukan dengan:
 
 \begin{table}[H]
 \centering
-\caption{Cakupan dan hasil delapan pengujian otomatis.}
+\caption{Cakupan dan hasil delapan pengujian inti.}
 \label{tab:pengujian}
 \small
 \begin{tabularx}{\textwidth}{@{}p{0.7cm}Xp{1.2cm}@{}}
@@ -82,7 +82,12 @@ dua kelompok berjumlah tujuh dan dua. & Lulus\\
 \end{tabularx}
 \end{table}
 
-Hasil pelaksanaan adalah \texttt{8 passed}. Pengujian pada sigma 1 dan 2
+Empat kasus tambahan mencakup kesesuaian mask pada gradien latar dengan
+dua polaritas, pemetaan satu per satu terhadap 24 pusat koin foto nyata,
+dan penolakan penanda watershed tidak valid atau kosong. Pada citra
+gradien sintetis, rasio irisan terhadap gabungan mask acuan lebih dari
+$0{,}94$. Hasil seluruh pengujian adalah \texttt{12 passed}.
+Pengujian pada sigma 1 dan 2
 merupakan pemeriksaan tambahan terhadap penyimpanan nilai bertanda;
 hasil utama nomor 1 tetap memakai sigma $0{,}1$ dan $0{,}2$.
 Contoh sembilan koin menunjukkan bahwa jumlah hasil tidak dipaksa menjadi

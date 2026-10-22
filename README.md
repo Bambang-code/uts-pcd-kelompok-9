@@ -158,6 +158,21 @@ serta [anotasi_koin.png](soal3/hasil/anotasi_koin.png) untuk posisi dan kelompok
 
 ![Ringkasan hasil nomor 3](soal3/hasil/ringkasan_visual.png)
 
+## Pengembangan tambahan: foto dengan pencahayaan tidak merata
+
+Metode bawaan tetap Otsu sesuai asumsi latar seragam. Pilihan watershed
+berbasis gradien Sobel tersedia untuk uji tambahan:
+
+```powershell
+.\.venv\Scripts\python.exe soal3/main.py --input soal3/data/koin_nyata_scikit.png --output-dir soal3/hasil_foto_nyata_watershed --method watershed --expected-count 24
+```
+
+Foto ini berisi **24 koin**, bukan pengganti data utama 100 koin.
+Pada Otsu, satu koin menyatu dengan latar walaupun jumlah region sama-sama
+24. Watershed memisahkan 24 pusat koin ke region berbeda. Parameter
+penanda perlu disesuaikan untuk foto lain; hasil ini tidak menjamin semua
+foto nyata. Lihat [perbandingan dan batasan uji foto nyata](soal3/UJI_FOTO_NYATA.md).
+
 ## Membuat ulang data dan menjalankan pengujian (opsional)
 
 ```powershell
@@ -169,7 +184,7 @@ serta [anotasi_koin.png](soal3/hasil/anotasi_koin.png) untuk posisi dan kelompok
 ```
 
 Perintah `pytest -q` di atas menjalankan seluruh pengujian dari folder
-repositori. Saat ini delapan pengujian otomatis mencakup nomor 1 dan 3.
+repositori. Saat ini 12 kasus pengujian otomatis mencakup nomor 1 dan 3, termasuk empat kasus tambahan watershed.
 Untuk menjalankan pengujian tiap bagian secara terpisah:
 
 ```powershell

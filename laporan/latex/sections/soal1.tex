@@ -160,3 +160,53 @@ selisih sekitar $-60{,}0037266$. Selisih yang tidak nol ini merupakan
 dapat menyerupai negatif citra dan tidak ditafsirkan semata-mata sebagai
 peta tepi. Program tetap menyajikan hasil dengan sigma yang ditentukan
 soal, disertai array asli dan penjelasan keterbatasan diskretisasinya.
+
+\clearpage
+\subsection{Uji tambahan pada foto nyata}
+\label{sec:log-foto-nyata}
+
+Selain citra sintetis, program diuji pada foto grayscale
+\kode{skimage.data.camera()} berukuran $512\times512$ piksel.
+Foto ini dilisensikan CC0 oleh fotografer Lav Varshney menurut
+dokumentasi scikit-image~\cite{skimage-camera}. Salinan foto tanpa perubahan
+tersedia pada \kode{soal1/data/foto_kamera_scikit.png}.
+Program dan parameter utama dipertahankan: $\sigma_1=0{,}1$,
+$\sigma_2=0{,}2$ piksel, mode batas \kode{reflect}, serta
+\kode{hasil = im1 - im2}. Kedua filter menerima foto masukan yang sama.
+
+\begin{lstlisting}[style=terminal]
+.\.venv\Scripts\python.exe soal1/main.py --input soal1/data/foto_kamera_scikit.png --output-dir soal1/hasil_foto_nyata
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/log-foto-nyata.png}
+\caption{Dari kiri: foto nyata masukan, respons LoG sigma $0{,}1$,
+respons LoG sigma $0{,}2$, dan selisihnya. Ketiga respons menggunakan
+skala tampilan bersama.}
+\label{fig:log-foto-nyata}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Rentang respons pada foto nyata, dibulatkan untuk penyajian.}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Array} & \textbf{Minimum} & \textbf{Maksimum}\\
+\midrule
+\kode{im1} & $-200{,}000000$ & $0{,}000000$\\
+\kode{im2} & $-49{,}992070$ & $0{,}000075629$\\
+\kode{hasil} & $-150{,}009317$ & $-0{,}000075629$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Pemeriksaan array tersimpan menunjukkan bahwa \kode{hasil.npy} sama
+persis dengan pengurangan \kode{im1.npy - im2.npy}; ketiganya bertipe
+\kode{float64}. Pada foto ini, korelasi selisih terhadap intensitas masukan
+sekitar $-0{,}999999999979$. Selisih masih menyerupai negatif foto,
+konsisten dengan bias DC akibat sampling kernel pada sigma sangat kecil.
+Menggunakan foto nyata tidak menghilangkan keterbatasan tersebut dan
+hasil tidak dinyatakan sebagai peta tepi ideal. Data numerik, PNG, dan
+metadata tersedia di \kode{soal1/hasil_foto_nyata/}; hasil sintetis
+sebelumnya tetap disimpan terpisah.

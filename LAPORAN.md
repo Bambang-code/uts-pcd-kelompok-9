@@ -132,7 +132,7 @@ Untuk setiap region:
 
 Eksekusi menghasilkan **18 gambar karakter**: ZEUS (4), TWINPEAK (8), dan
 ACOSTA (6). Setiap PNG yang diperiksa bersifat biner dan memuat satu komponen
-8 tetangga. Pemeriksaan ini terpisah dari delapan tes otomatis nomor 1 dan 3.
+8 tetangga. Pemeriksaan ini terpisah dari 12 kasus pengujian otomatis nomor 1 dan 3.
 Program melakukan segmentasi, bukan pengenalan identitas huruf/OCR.
 Karakter bersentuhan dapat tergabung dan karakter dengan bagian terpisah
 dapat menjadi beberapa objek. Pengurutan mengasumsikan baris hampir lurus
@@ -290,6 +290,31 @@ koin yang sangat mirip latar dapat menyebabkan kesalahan segmentasi.
 Pengisian lubang mengasumsikan koin berbentuk cakram penuh. Pengujian
 sintetis menunjukkan kesesuaian dengan asumsi soal, bukan jaminan akurasi
 pada semua foto nyata.
+
+## Pengembangan tambahan soal 3: watershed
+
+Metode Otsu bawaan dan hasil utama 100 koin tetap dipertahankan.
+Pilihan `--method watershed` menggunakan gradien Sobel dan penanda latar
+serta objek pada intensitas ternormalisasi. Nilai awal `--marker-low 0.12`
+dan `--marker-high 0.6` dipakai pada satu foto 24 koin nyata, dan dapat
+memerlukan penyesuaian pada foto lain. `regionprops` serta aturan ukuran
+8% tetap dipakai setelah segmentasi.
+
+Otsu dan watershed sama-sama menghasilkan 24 region pada foto tersebut,
+tetapi pada Otsu koin kiri atas menyatu dengan latar terang. Watershed
+memetakan setiap pusat acuan visual ke region berbeda dengan selisih
+centroid kurang dari 3 piksel dan tanpa kotak pembatas menyentuh bingkai.
+Pemeriksaan ini tidak memvalidasi setiap piksel batas atau ukuran fisik.
+Lima kelompok diameter piksel berjumlah 10, 8, 2, 3, dan 1.
+
+Empat kasus tambahan menguji gradien latar pada dua polaritas, 24 pusat
+koin nyata, serta penanda tidak valid. Seluruh 12 kasus pengujian lulus.
+Mask dan CSV metode Otsu pada contoh 100 koin tetap identik. Foto 24 koin
+ini merupakan uji tambahan di luar asumsi soal, bukan pengganti data 100 koin.
+
+Perintah, hasil sebelum-sesudah, sumber foto, dan batasan tersedia di
+[UJI_FOTO_NYATA.md](soal3/UJI_FOTO_NYATA.md).
+Metode merujuk [contoh resmi scikit-image](https://scikit-image.org/docs/stable/auto_examples/applications/plot_coins_segmentation.html).
 
 ## Reproduksi dan referensi
 
